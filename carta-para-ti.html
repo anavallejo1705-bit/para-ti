@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti 💙</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Nunito', sans-serif; overflow: hidden; }
+
+  /* ===================== PÁGINAS ===================== */
+  .page {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .page.active {
+    display: flex;
+    opacity: 1;
+  }
+  .page.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ===================== PÁGINA 1 ===================== */
+  #page1 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background: #00bfff;
+    padding-bottom: 80px;
+    overflow: hidden;
+  }
+
+  /* Ondas */
+  .wave-container {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+  }
+  .wave-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Barco */
+  .boat-wrapper {
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0px) rotate(-1deg); }
+    50% { transform: translateX(-50%) translateY(-12px) rotate(1deg); }
+  }
+
+  /* Texto página 1 */
+  .p1-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+  }
+  .p1-hola {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8px;
+  }
+  .p1-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: white;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  /* Botón AQUI */
+  .btn-aqui {
+    background: white;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 64px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #e03030;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-aqui:hover {
+    transform: scale(1.07);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.22);
+  }
+  .btn-aqui:active { transform: scale(0.97); }
+
+  /* ===================== PÁGINA 2 ===================== */
+  #page2 {
+    background: #ffffff;
+    flex-direction: column;
+    padding: 32px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p2-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .p2-hola-tag {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .p2-body {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 32px;
+  }
+
+  .p2-text {
+    flex: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #111;
+    line-height: 1.45;
+  }
+
+  .p2-illustration {
+    flex: 0 0 auto;
+    width: clamp(200px, 35vw, 400px);
+  }
+
+  .p2-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .btn-yes {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: #1a6fd4;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-yes:hover { background: #e0eaff; transform: scale(1.04); }
+
+  .btn-no {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #888;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  /* ===================== PÁGINA 3 ===================== */
+  #page3 {
+    background: #f9f9ff;
+    flex-direction: column;
+    padding: 32px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .p3-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .p3-tag {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .p3-body {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 32px;
+  }
+
+  .p3-left {
+    flex: 1;
+  }
+
+  .p3-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-weight: 900;
+    color: #1a6fd4;
+    line-height: 1.3;
+    margin-bottom: 28px;
+  }
+
+  .p3-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .p3-detail {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: #222;
+    font-weight: 600;
+  }
+  .p3-detail span {
+    color: #e03030;
+    font-weight: 800;
+  }
+
+  .p3-illustration {
+    flex: 0 0 auto;
+    width: clamp(200px, 35vw, 380px);
+  }
+
+  /* Barquito decorativo en páginas 2 y 3 */
+  .mini-boat {
+    width: 52px;
+    opacity: 0.85;
+  }
+
+  /* Animación entrada páginas 2 y 3 */
+  .slide-in {
+    animation: slideIn 0.5s ease forwards;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Toast gracioso */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #111;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    z-index: 999;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Corazones flotantes */
+  .hearts-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 900;
+    overflow: hidden;
+  }
+  .heart-float {
+    position: absolute;
+    bottom: -50px;
+    font-size: 1.6rem;
+    animation: riseUp 2.5s ease forwards;
+    opacity: 0;
+  }
+  @keyframes riseUp {
+    0% { transform: translateY(0) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    #page2, #page3 { padding: 20px 20px; }
+    .p2-body, .p3-body { flex-direction: column; }
+    .p2-illustration, .p3-illustration { width: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PÁGINA 1 ===== -->
+<div id="page1" class="page active">
+  <div class="wave-container">
+    <svg class="wave-svg" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,160 C200,240 400,80 600,180 C800,280 1000,100 1200,200 C1300,250 1380,220 1440,210 L1440,500 L0,500 Z" fill="#0a0a5e"/>
+      <path d="M0,200 C180,280 360,140 560,220 C760,300 960,160 1160,240 C1300,300 1400,260 1440,250 L1440,500 L0,500 Z" fill="#10106e" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <!-- Barco SVG -->
+  <div class="boat-wrapper">
+    <svg viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cuerpo del barco -->
+      <path d="M20 100 L40 130 L180 130 L200 100 Z" fill="#d0d0d0"/>
+      <path d="M30 100 L190 100 L170 78 L50 78 Z" fill="#e8e8e8"/>
+      <!-- Vela izquierda -->
+      <polygon points="90,20 90,95 40,95" fill="#c8c8c8"/>
+      <!-- Vela derecha -->
+      <polygon points="110,20 110,95 165,95" fill="#e0e0e0"/>
+      <!-- Corazón rojo encima -->
+      <g transform="translate(95, 28)">
+        <path d="M15,6 C15,3 13,0 10,0 C7,0 5,3 5,6 C5,3 3,0 0,0 C-3,0 -5,3 -5,6 C-5,11 0,16 10,22 C20,16 25,11 25,6 C25,3 23,0 20,0 C17,0 15,3 15,6 Z" fill="#cc2020" transform="translate(-10,-4) scale(0.9)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="p1-content">
+    <div class="p1-hola">HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>
+    <div class="p1-title">Si aún me quieres haz click</div>
+    <button class="btn-aqui" onclick="goTo(2)">AQUI</button>
+  </div>
+</div>
+
+<!-- ===== PÁGINA 2 ===== -->
+<div id="page2" class="page">
+  <div class="p2-top">
+    <div class="p2-hola-tag">HOLA ❤️</div>
+    <svg class="mini-boat" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 36 L15 48 L65 48 L72 36 Z" fill="#5b9bd5" opacity="0.8"/>
+      <path d="M12 36 L68 36 L60 26 L20 26 Z" fill="#7ab3e0"/>
+      <polygon points="34,6 34,34 14,34" fill="#4a8bc4" opacity="0.9"/>
+      <polygon points="42,6 42,34 62,34" fill="#6aaad8" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <div class="p2-body slide-in">
+    <div>
+      <div class="p2-text">
+        Solo me gustaría decir que te extraño mucho, y aunque haya distancia o desacuerdos entre nosotros, no me gusta no hablar :(
+      </div>
+      <div class="p2-buttons">
+        <button class="btn-yes" onclick="goTo(3)">TAMBIÉN TE EXTRAÑO</button>
+        <button class="btn-no" id="btnNo" onmouseover="moveBtn()" onclick="noBtnClick()">NO ME HABLES ANA</button>
+      </div>
+    </div>
+
+    <!-- Ilustración pareja -->
+    <div class="p2-illustration">
+      <svg viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Chico -->
+        <circle cx="110" cy="85" r="52" fill="#8B5E3C"/>
+        <!-- Cabello chico -->
+        <ellipse cx="110" cy="55" rx="52" ry="30" fill="#1a1a1a"/>
+        <ellipse cx="85" cy="68" rx="20" ry="18" fill="#1a1a1a"/>
+        <ellipse cx="135" cy="68" rx="20" ry="18" fill="#1a1a1a"/>
+        <!-- Cara chico -->
+        <ellipse cx="110" cy="88" rx="38" ry="40" fill="#c68642"/>
+        <!-- Cachetes -->
+        <circle cx="90" cy="100" r="10" fill="#e8907a" opacity="0.6"/>
+        <circle cx="130" cy="100" r="10" fill="#e8907a" opacity="0.6"/>
+        <!-- Ojos cerrados chico -->
+        <path d="M96,88 Q103,83 110,88" stroke="#5a3010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M120,88 Q127,83 134,88" stroke="#5a3010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Cuerpo chico -->
+        <rect x="75" y="135" width="70" height="90" rx="18" fill="#f0cc60"/>
+        <!-- Pantalón chico -->
+        <rect x="75" y="200" width="30" height="65" rx="10" fill="#333"/>
+        <rect x="115" y="200" width="30" height="65" rx="10" fill="#333"/>
+        <!-- Zapatos chico -->
+        <ellipse cx="90" cy="265" rx="18" ry="9" fill="#aa3322"/>
+        <ellipse cx="130" cy="265" rx="18" ry="9" fill="#aa3322"/>
+        <!-- Brazo chico extendido -->
+        <rect x="143" y="148" width="28" height="16" rx="8" fill="#c68642"/>
+
+        <!-- Chica -->
+        <circle cx="230" cy="85" r="48" fill="#8B5E3C"/>
+        <!-- Cabello chica -->
+        <ellipse cx="230" cy="50" rx="46" ry="28" fill="#1a1a1a"/>
+        <ellipse cx="200" cy="95" rx="16" ry="55" fill="#1a1a1a"/>
+        <ellipse cx="260" cy="90" rx="14" ry="45" fill="#1a1a1a"/>
+        <!-- Cara chica -->
+        <ellipse cx="230" cy="88" rx="36" ry="39" fill="#d4956a"/>
+        <!-- Cachetes -->
+        <circle cx="211" cy="100" r="10" fill="#e8907a" opacity="0.6"/>
+        <circle cx="249" cy="100" r="10" fill="#e8907a" opacity="0.6"/>
+        <!-- Ojos cerrados chica -->
+        <path d="M216,88 Q223,83 230,88" stroke="#5a3010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M240,88 Q247,83 254,88" stroke="#5a3010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Vestido chica -->
+        <path d="M195,135 L170,230 L290,230 L265,135 Z" fill="#8dbb8d"/>
+        <!-- Cuello -->
+        <rect x="210" y="130" width="40" height="20" rx="8" fill="#d4956a"/>
+        <!-- Brazo chica -->
+        <rect x="160" y="148" width="28" height="16" rx="8" fill="#d4956a"/>
+        <!-- Manos tomadas -->
+        <circle cx="165" cy="156" r="9" fill="#d4956a"/>
+        <circle cx="155" cy="156" r="9" fill="#c68642"/>
+
+        <!-- Piernas chica -->
+        <rect x="196" y="226" width="26" height="45" rx="10" fill="#8dbb8d"/>
+        <rect x="230" y="226" width="26" height="45" rx="10" fill="#8dbb8d"/>
+        <!-- Zapatos chica -->
+        <ellipse cx="209" cy="271" rx="16" ry="8" fill="#4a7a4a"/>
+        <ellipse cx="243" cy="271" rx="16" ry="8" fill="#4a7a4a"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PÁGINA 3 ===== -->
+<div id="page3" class="page">
+  <div class="p3-top">
+    <div class="p3-tag">INVITACIÓN FORMAL</div>
+    <svg class="mini-boat" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 36 L15 48 L65 48 L72 36 Z" fill="#5b9bd5" opacity="0.8"/>
+      <path d="M12 36 L68 36 L60 26 L20 26 Z" fill="#7ab3e0"/>
+      <polygon points="34,6 34,34 14,34" fill="#4a8bc4" opacity="0.9"/>
+      <polygon points="42,6 42,34 62,34" fill="#6aaad8" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <div class="p3-body slide-in">
+    <div class="p3-left">
+      <div class="p3-title">
+        Te invito a que nos hablemos de nuevo, arreglemos las cosas por favor amor.<br>Te amo 💙
+      </div>
+      <div class="p3-details">
+        <div class="p3-detail"><span>Día:</span> Lo más pronto posible</div>
+        <div class="p3-detail"><span>Hora:</span> Desde la mañana hasta la noche</div>
+        <div class="p3-detail"><span>Plan:</span> Darnos un abrazo, hablar, comer algo tal vez en el parque</div>
+      </div>
+    </div>
+
+    <!-- Ilustración pareja feliz -->
+    <div class="p3-illustration">
+      <svg viewBox="0 0 300 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Chico -->
+        <ellipse cx="100" cy="55" rx="46" ry="28" fill="#1a1a1a"/>
+        <ellipse cx="75" cy="65" rx="18" ry="16" fill="#1a1a1a"/>
+        <ellipse cx="125" cy="65" rx="18" ry="16" fill="#1a1a1a"/>
+        <ellipse cx="100" cy="83" rx="38" ry="40" fill="#c68642"/>
+        <circle cx="80" cy="95" r="10" fill="#e8907a" opacity="0.6"/>
+        <circle cx="120" cy="95" r="10" fill="#e8907a" opacity="0.6"/>
+        <!-- Sonrisa chico -->
+        <path d="M85,100 Q100,114 115,100" stroke="#5a3010" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Ojos chico -->
+        <circle cx="88" cy="88" r="4" fill="#1a1a1a"/>
+        <circle cx="112" cy="88" r="4" fill="#1a1a1a"/>
+        <circle cx="90" cy="86" r="2" fill="white"/>
+        <circle cx="114" cy="86" r="2" fill="white"/>
+        <!-- Cuerpo chico -->
+        <rect x="65" y="128" width="70" height="85" rx="18" fill="#f0cc60"/>
+        <rect x="65" y="188" width="28" height="60" rx="10" fill="#333"/>
+        <rect x="107" y="188" width="28" height="60" rx="10" fill="#333"/>
+        <ellipse cx="79" cy="248" rx="16" ry="8" fill="#aa3322"/>
+        <ellipse cx="121" cy="248" rx="16" ry="8" fill="#aa3322"/>
+        <rect x="133" y="140" width="26" height="15" rx="7" fill="#c68642"/>
+
+        <!-- Chica -->
+        <ellipse cx="220" cy="48" rx="44" ry="26" fill="#1a1a1a"/>
+        <ellipse cx="192" cy="88" rx="15" ry="52" fill="#1a1a1a"/>
+        <ellipse cx="248" cy="84" rx="13" ry="44" fill="#1a1a1a"/>
+        <ellipse cx="220" cy="83" rx="36" ry="39" fill="#d4956a"/>
+        <circle cx="202" cy="95" r="10" fill="#e8907a" opacity="0.6"/>
+        <circle cx="238" cy="95" r="10" fill="#e8907a" opacity="0.6"/>
+        <!-- Sonrisa chica -->
+        <path d="M206,100 Q220,114 234,100" stroke="#8a4020" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Ojos chica -->
+        <circle cx="208" cy="84" r="4" fill="#1a1a1a"/>
+        <circle cx="232" cy="84" r="4" fill="#1a1a1a"/>
+        <circle cx="210" cy="82" r="2" fill="white"/>
+        <circle cx="234" cy="82" r="2" fill="white"/>
+        <!-- Vestido chica -->
+        <path d="M186,130 L162,228 L278,228 L254,130 Z" fill="#8dbb8d"/>
+        <rect x="200" y="125" width="40" height="20" rx="8" fill="#d4956a"/>
+        <rect x="150" y="143" width="26" height="15" rx="7" fill="#d4956a"/>
+        <circle cx="155" cy="150" r="9" fill="#d4956a"/>
+        <circle cx="145" cy="150" r="9" fill="#c68642"/>
+        <rect x="186" y="224" width="25" height="44" rx="10" fill="#8dbb8d"/>
+        <rect x="219" y="224" width="25" height="44" rx="10" fill="#8dbb8d"/>
+        <ellipse cx="199" cy="268" rx="15" ry="8" fill="#4a7a4a"/>
+        <ellipse cx="232" cy="268" rx="15" ry="8" fill="#4a7a4a"/>
+
+        <!-- Corazón entre ellos -->
+        <g transform="translate(148,58)">
+          <path d="M12,5C12,2.5 10,0 7.5,0C5,0 3,2.5 3,5C3,2.5 1,0 -1.5,0C-4,0 -6,2.5 -6,5C-6,9 -1,13 7.5,18C16,13 21,9 21,5C21,2.5 19,0 16.5,0C14,0 12,2.5 12,5Z" fill="#e03030"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">😂 ¡Mentira! Tú también me extrañas ❤️</div>
+
+<!-- Corazones -->
+<div class="hearts-container" id="heartsContainer"></div>
+
+<script>
+  function goTo(n) {
+    const current = document.querySelector('.page.active');
+    if (current) {
+      current.classList.add('fade-out');
+      setTimeout(() => {
+        current.classList.remove('active', 'fade-out');
+        current.style.display = 'none';
+      }, 600);
+    }
+    setTimeout(() => {
+      const next = document.getElementById('page' + n);
+      next.style.display = 'flex';
+      requestAnimationFrame(() => {
+        next.classList.add('active');
+      });
+    }, 300);
+  }
+
+  // Botón "NO ME HABLES ANA" — escapa del cursor
+  let noClicks = 0;
+  function moveBtn() {
+    const btn = document.getElementById('btnNo');
+    const parent = btn.parentElement;
+    const parentRect = parent.getBoundingClientRect();
+    const bw = btn.offsetWidth, bh = btn.offsetHeight;
+    const maxX = parentRect.width - bw;
+    const maxY = 60;
+    const rx = Math.random() * maxX;
+    const ry = Math.random() * maxY - 20;
+    btn.style.position = 'relative';
+    btn.style.left = (rx - bw) + 'px';
+    btn.style.top = ry + 'px';
+  }
+
+  function noBtnClick() {
+    noClicks++;
+    if (noClicks >= 3) {
+      goTo(3);
+    } else {
+      showToast('¡No puedes escapar tan fácil! 😏');
+    }
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // Corazones al llegar a página 3
+  function spawnHearts() {
+    const container = document.getElementById('heartsContainer');
+    const emojis = ['💙','❤️','💛','🩵','🤍','💚'];
+    for (let i = 0; i < 18; i++) {
+      setTimeout(() => {
+        const h = document.createElement('div');
+        h.className = 'heart-float';
+        h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        h.style.left = Math.random() * 95 + 'vw';
+        h.style.animationDelay = '0s';
+        h.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
+        container.appendChild(h);
+        setTimeout(() => h.remove(), 2600);
+      }, i * 130);
+    }
+  }
+
+  // Observer para lanzar corazones cuando aparece página 3
+  const origGoTo = goTo;
+  window.goTo = function(n) {
+    origGoTo(n);
+    if (n === 3) setTimeout(spawnHearts, 400);
+  };
+</script>
+</body>
+</html>
